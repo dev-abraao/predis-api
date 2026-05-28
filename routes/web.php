@@ -31,7 +31,7 @@ Route::post('/redis', function (Request $request) {
 });
 
 Route::get('/redis/all', function () {
-    $keys = (Object) Redis::keys('*');
+    $keys = (Object) Redis::keys('user:*');
     $result = [];
 
     foreach ($keys as $key) {
