@@ -30,12 +30,6 @@ Route::post('/redis', function (Request $request) {
     }
 });
 
-Route::get('redis', function (Request $request) {
-    $res = Redis::sMembers($request->input('key'));
-
-    return response()->json([$res]);
-});
-
 Route::get('/redis/all', function () {
     $keys = (Object) Redis::keys('*');
     $result = [];
