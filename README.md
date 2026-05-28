@@ -1,1 +1,1 @@
-using predis to store data in memory and syncing to db in cron jobs
+using predis to store data in memory and syncing to db w queue(cron) 🤓
