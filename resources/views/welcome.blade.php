@@ -18,6 +18,94 @@
         @endif
     </head>
     <body>
-        redis
+        <main class="min-h-screen bg-gray-100 text-gray-900">
+            @if (session('message'))
+                <div class="mx-auto max-w-xl px-6 py-4">
+                    <div class="rounded-md border border-gray-200 bg-white p-6 shadow-sm">
+                        <p class="text-sm text-gray-600">{{ session('message') }}</p>
+                    </div>
+                </div>
+            @endif
+
+            <div class="mx-auto max-w-xl px-6 py-4">
+                <div class="rounded-md border border-gray-200 bg-white p-6 shadow-sm">
+                    <h2 class="text-lg font-semibold">Session Data</h2>
+                    @if (count(session()->all()) > 0)
+                        <pre class="mt-4 overflow-x-auto rounded-md bg-gray-50 p-4 text-sm text-gray-700">{{ print_r(session()->all(), true) }}</pre>
+                    @else
+                        <p class="mt-3 text-sm text-gray-600">Session is empty.</p>
+                    @endif
+                </div>
+            </div>
+
+            <div class="mx-auto max-w-xl px-6 py-4">
+                <h1 class="text-3xl font-semibold">Redis Session Test</h1>
+                <p class="mt-2 text-sm text-gray-600">Use these forms to test session storage.</p>
+
+                <section class="mt-8 rounded-md border border-gray-200 bg-white p-6 shadow-sm">
+                    <h2 class="text-lg font-semibold">Register</h2>
+                    <form class="mt-4 grid gap-3" method="POST" action="/register">
+                        @csrf
+                        <label class="grid gap-1">
+                            <span class="text-sm font-medium">Name</span>
+                            <input class="rounded-md border border-gray-300 px-3 py-2" type="text" name="name" required>
+                        </label>
+                        <label class="grid gap-1">
+                            <span class="text-sm font-medium">Email</span>
+                            <input class="rounded-md border border-gray-300 px-3 py-2" type="email" name="email" required>
+                        </label>
+                        <label class="grid gap-1">
+                            <span class="text-sm font-medium">Password</span>
+                            <input class="rounded-md border border-gray-300 px-3 py-2" type="password" name="password" required>
+                        </label>
+                        <button class="rounded-md bg-black px-4 py-2 text-white" type="submit">Create account</button>
+                    </form>
+                </section>
+
+                <section class="mt-6 rounded-md border border-gray-200 bg-white p-6 shadow-sm">
+                    <h2 class="text-lg font-semibold">Login</h2>
+                    <form class="mt-4 grid gap-3" method="POST" action="/login">
+                        @csrf
+                        <label class="grid gap-1">
+                            <span class="text-sm font-medium">Email</span>
+                            <input class="rounded-md border border-gray-300 px-3 py-2" type="email" name="email" required>
+                        </label>
+                        <label class="grid gap-1">
+                            <span class="text-sm font-medium">Password</span>
+                            <input class="rounded-md border border-gray-300 px-3 py-2" type="password" name="password" required>
+                        </label>
+                        <button class="rounded-md bg-black px-4 py-2 text-white" type="submit">Sign in</button>
+                    </form>
+                </section>
+
+                <section class="mt-6 rounded-md border border-gray-200 bg-white p-6 shadow-sm">
+                    <h2 class="text-lg font-semibold">Logout</h2>
+                    <form class="mt-4" method="POST" action="/logout">
+                        @csrf
+                        <button class="rounded-md bg-black px-4 py-2 text-white" type="submit">Log out</button>
+                    </form>
+                </section>
+
+                <section class="mt-6 rounded-md border border-gray-200 bg-white p-6 shadow-sm">
+                    <h2 class="text-lg font-semibold">Add to Cart</h2>
+                    <form class="mt-4 grid gap-3" method="POST" action="/add-to-cart">
+                        @csrf
+                        <label class="grid gap-1">
+                            <span class="text-sm font-medium">Product name</span>
+                            <input class="rounded-md border border-gray-300 px-3 py-2" type="text" name="name" required>
+                        </label>
+                        <label class="grid gap-1">
+                            <span class="text-sm font-medium">Product ID</span>
+                            <input class="rounded-md border border-gray-300 px-3 py-2" type="text" name="product_id" required>
+                        </label>
+                        <label class="grid gap-1">
+                            <span class="text-sm font-medium">Quantity</span>
+                            <input class="rounded-md border border-gray-300 px-3 py-2" type="number" name="quantity" min="1" value="1" required>
+                        </label>
+                        <button class="rounded-md bg-black px-4 py-2 text-white" type="submit">Add item</button>
+                    </form>
+                </section>
+            </div>
+        </main>
     </body>
 </html>
